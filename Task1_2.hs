@@ -21,7 +21,12 @@ gcd x y = if ((x < 0) || (y < 0))
 
 -- существует ли полный целочисленный квадрат в диапазоне [from, to)?
 doesSquareBetweenExist :: Integer -> Integer -> Bool
-doesSquareBetweenExist from to = todo
+doesSquareBetweenExist from to = res_ from to
+    where 
+        res_ a b | a >= b = False
+       -- res_ a b | (ceiling (sqrt (fromIntegral a))) - (floor (sqrt (fromIntegral b))) <= -1 = True
+        res_ a b | (ceiling (sqrt (fromIntegral a))) * (ceiling (sqrt (fromIntegral a))) >= a && (ceiling (sqrt (fromIntegral a))) * (ceiling (sqrt (fromIntegral a))) < b = True
+        res_ a b | otherwise = False
 
 -- является ли дата корректной с учётом количества дней в месяце и
 -- вискокосных годов?
