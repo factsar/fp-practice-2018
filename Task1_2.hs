@@ -34,6 +34,7 @@ pow :: Integer -> Integer -> Integer
 pow 0 0 = error "undefined" 
 pow 0 _ = 1
 pow x 0 = 1
+pow x y | y < 0 = error "Unsupported: negative power value."
 pow x y = res_ x y 1
       where
          res_ x y r | y == 0 = r
