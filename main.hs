@@ -47,3 +47,22 @@ main = do
   putStr "pow 2 3 = "; print $ Task1_2.pow (2) (3)
   putStr "pow 2 4 = "; print $ Task1_2.pow (2) (4)
   putStr "pow 2 5 = "; print $ Task1_2.pow (2) (5)
+
+
+  putStr "\ndoesSquareBetweenExist (doesSquareBetweenExist) tests:\n"
+  putStr "doesSquareBetweenExist 0 0 = "; print $ Task1_2.doesSquareBetweenExist 0 0
+  putStr "doesSquareBetweenExist 1 0 = "; print $ Task1_2.doesSquareBetweenExist 1 0
+  putStr "doesSquareBetweenExist 0 1 = "; print $ Task1_2.doesSquareBetweenExist 0 1
+  putStr "doesSquareBetweenExist 0 2 = "; print $ Task1_2.doesSquareBetweenExist 0 2
+  putStr "doesSquareBetweenExist 2 4 = "; print $ Task1_2.doesSquareBetweenExist 2 4
+  putStr "doesSquareBetweenExist 2 5 = "; print $ Task1_2.doesSquareBetweenExist 2 5
+  putStr "doesSquareBetweenExist 4 4 = "; print $ Task1_2.doesSquareBetweenExist 4 4
+  putStr "doesSquareBetweenExist 8 9 = "; print $ Task1_2.doesSquareBetweenExist 8 9
+  putStr "doesSquareBetweenExist 9 11 = "; print $ Task1_2.doesSquareBetweenExist 9 11
+  putStr "doesSquareBetweenExist 3 2 = "; print $ Task1_2.doesSquareBetweenExist 3 2
+  putStr "doesSquareBetweenExist 2 3 = "; print $ Task1_2.doesSquareBetweenExist 2 3
+  putStr "doesSquareBetweenExist 3 4 = "; print $ Task1_2.doesSquareBetweenExist 3 4
+  putStr "doesSquareBetweenExist 5 6 = "; print $ Task1_2.doesSquareBetweenExist 5 6
+  putStr "doesSquareBetweenExist 5 7 = "; print $ Task1_2.doesSquareBetweenExist 5 7
+  putStr "doesSquareBetweenExist 5 8 = "; print $ Task1_2.doesSquareBetweenExist 5 8
+  putStr "doesSquareBetweenExist 7 8 = "; print $ Task1_2.doesSquareBetweenExist 7 8
