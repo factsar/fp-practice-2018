@@ -24,7 +24,6 @@ doesSquareBetweenExist :: Integer -> Integer -> Bool
 doesSquareBetweenExist from to = res_ from to
     where 
         res_ a b | a >= b = False
-       -- res_ a b | (ceiling (sqrt (fromIntegral a))) - (floor (sqrt (fromIntegral b))) <= -1 = True
         res_ a b | (sqcesqrt a) >= a && (sqcesqrt a) < b = True
             where 
                 sqcesqrt x = (ceiling$sqrt$fromIntegral x) * (ceiling$sqrt$fromIntegral x)
