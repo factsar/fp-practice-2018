@@ -44,8 +44,8 @@ pow x y | y < 0 = error "Unsupported: negative power value."
 pow x y = res_ x y 1
       where
          res_ x y r | y == 0 = r
-         res_ x y r | y `mod` 2 == 0 = res_ (x * x) ((y `div` 2)-1) r*x*x
-         res_ x y r | otherwise = res_ x (y-1) (r * x)
+         res_ x y r | y `mod` 2 == 0 = res_ (x * x) ((y `div` 2) - 1) r * x * x
+         res_ x y r | otherwise = res_ x (y - 1) (r * x)
 
 -- является ли данное число простым?
 isPrime :: Integer -> Bool
