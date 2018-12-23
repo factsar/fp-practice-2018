@@ -52,7 +52,9 @@ isPrime :: Integer -> Bool
 isPrime x | x <= 1 = False
 isPrime x | x == 2 = True
 isPrime x | x `mod` 2 == 0 = False
-isPrime x | otherwise = if (floor (sqrt (fromIntegral x))) `mod` 2 == 0 then res' ((floor (sqrt (fromIntegral x))) - 1) else  res' (floor (sqrt (fromIntegral x)))
+isPrime x | otherwise = if (floor (sqrt (fromIntegral x))) `mod` 2 == 0 
+then res' ((floor (sqrt (fromIntegral x))) - 1) 
+else  res' (floor (sqrt (fromIntegral x)))
     where
         res' i | i == 1 = True
         res' i | (Task1_2.gcd x i) > 1 = False
