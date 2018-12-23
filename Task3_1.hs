@@ -68,11 +68,12 @@ instance Num WeirdPeanoNumber where
     fromInteger x | x > 0 = Succ (fromInteger (x - 1))
 
 instance Eq WeirdPeanoNumber where
-    (==) x y = (==) $ (simplify x) (simplify y)
-    (==) Zero Zero = True
-    (==) (Succ x) (Succ y) = (==) x y
-    (==) (Pred x) (Pred y) = (==) x y
-    (==) _ _ = False
+    (==) x y = eqi (simplify x) (simplify y)
+        where
+            eqi Zero Zero = True
+            eqi (Succ x) (Succ y) = eqi x y
+            eqi (Pred x) (Pred y) = eqi x y
+            eqi        _        _ = False
 
 instance Ord WeirdPeanoNumber where
     (<=) x y | toInteger x <= toInteger y = True
