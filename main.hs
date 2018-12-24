@@ -1,4 +1,10 @@
+import Task1_1
 import Task1_2
+
+import Task2_1
+import Task2_2
+
+import Task3_1
 
 main = do 
   putStr "************\n"
