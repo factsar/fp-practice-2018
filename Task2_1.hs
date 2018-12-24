@@ -65,8 +65,8 @@ treeFromList (x:xs) = insert x (treeFromList xs)
 -- Построение списка пар из дерева
 listFromTree :: TreeMap v -> [(Integer, v)]
 listFromTree EmptyTM = []
-listFromTree (Node k hv@(lh:lt) EmptyTM EmptyTM ) | hv == [] = res [(k, hv)] []
-listFromTree (Node k hv@(lh:lt) lt rt) = (res [(k, hv)] []) ++ (listFromTree lt) ++ (listFromTree rt)
+listFromTree (Fork k hv@(lh:lt) EmptyTM EmptyTM ) | hv == [] = res [(k, hv)] []
+listFromTree (Fork k hv@(lh:lt) lt rt) = (res [(k, hv)] []) ++ (listFromTree lt) ++ (listFromTree rt)
     where
         res :: [(Integer, [v])] -> [(Integer, v)] -> [(Integer, v)]
         res [] acc = acc
