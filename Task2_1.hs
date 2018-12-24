@@ -22,10 +22,11 @@ contains (Fork (hk , _) lt rt) lfk | hk == lfk = True
 -- Значение для заданного ключа
 lookup :: Integer -> TreeMap v -> v
 lookup _ EmptyTM = error "Empty Tree error"
-lookup lfk (Fork (hk, hv@[lh:lt]) lt rt) | hk == lfk && hv /= [] = lh
-                                         | hk == lfk && hv == [] = error $ "Empty list of value on that key[" ++ show lfk ++"]"
-                                         | hk > lfk = lookup lfk lt
-                                         | otherwise = lookup lfk rt
+lookup lfk (Fork (hk, hv@[lh:lt]) lt rt) 
+    | hk == lfk && hv /= [] = lh
+    | hk == lfk && hv == [] = error $ "Empty list of value on that key[" ++ show lfk ++"]"
+    | hk > lfk = lookup lfk lt
+    | otherwise = lookup lfk rt
 
 -- Вставка пары (ключ, значение) в дерево
 insert :: (Integer, v) -> TreeMap v -> TreeMap v
