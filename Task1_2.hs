@@ -26,7 +26,9 @@ doesSquareBetweenExist from to = res_ from to
         res_ a b | a >= b = False
         res_ a b | (sqcesqrt a) >= a && (sqcesqrt a) < b = True
             where 
-                sqcesqrt x = (ceiling$sqrt$fromIntegral x) * (ceiling$sqrt$fromIntegral x)
+                sqcesqrt x = (ceiling$sqrt_ x) * (ceiling$sqrt_ x)
+                    where
+                        sqrt_ x = sqrt$fromIntegral x
         res_ a b | otherwise = False
 
 -- является ли дата корректной с учётом количества дней в месяце и
