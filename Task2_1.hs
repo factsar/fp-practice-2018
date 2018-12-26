@@ -101,10 +101,15 @@ listFromTree :: TreeMap v -> [(Integer, v)]
 listFromTree EmptyTM = []
 listFromTree (Fork (k, hv) lt rt) = (listFromTree lt) ++ [(k, hv)] ++ (listFromTree rt)
 
+sortedlistFromTree :: TreeMap v -> [(Integer, v)]
+sortedlistFromTree t = res $ listFromTree t
+    where
+        res l = sortBy (compare `on` fst) l
+
 -- Поиск k-той порядковой статистики дерева 
 kMean :: Integer -> TreeMap v -> (Integer, v)
 kMean kstat EmptyTM = error "EmptyTM (kMean)"
-kMean kstat t = res kstat (listFromTree t) 0
+kMean kstat t = res kstat (sortedlistFromTree t) 0
     where
         res :: Integer -> [(Integer, v)] -> Integer -> (Integer, v)
         res kstat l@(lh:[]) c | (c+1) < kstat = error "kstat more then TreeMP"
