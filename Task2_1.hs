@@ -94,7 +94,7 @@ listFromTree (Fork (k, hv) lt rt) = [(k, hv)] ++ (listFromTree lt) ++ (listFromT
 sortedlistFromTree :: TreeMap v -> [(Integer, v)]
 sortedlistFromTree t = res $ listFromTree t
     where
-        res l = sortBy (compare `on` fst) (frequency l)
+        res l = sortBy (compare `on` fst) l
 
 -- Поиск k-той порядковой статистики дерева 
 kMean :: Integer -> TreeMap v -> (Integer, v)
