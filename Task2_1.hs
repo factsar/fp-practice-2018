@@ -96,6 +96,6 @@ kMean kstat EmptyTM = error "EmptyTM (kMean)"
 kMean kstat t = res kstat (listFromTree t) 0
     where
         res :: Integer -> [(Integer, v)] -> Integer -> (Integer, v)
-        res kstat l@(lh:[]) c | c < kstat = error "kstat more then TreeMP"
+        res kstat l@(lh:[]) c | (c+1) < kstat = error "kstat more then TreeMP"
         res kstat l@(lh:lt) c | c == kstat = lh
         res kstat l@(lh:lt) c | c < kstat = res kstat lt (c+1)
