@@ -91,18 +91,15 @@ listFromTree EmptyTM = []
 --listFromTree (Fork (k, hv) EmptyTM EmptyTM ) = [(k, hv)]
 listFromTree (Fork (k, hv) lt rt) = [(k, hv)] ++ (listFromTree lt) ++ (listFromTree rt)
 
-kMean :: Integer -> TreeMap v -> (Integer, v)
-kMean kstat t = res kstat t (min_key t) 0
-    where 
-        res :: Integer -> TreeMap v -> Integer -> Integer -> (Integer, v)
-        res kstat t curr_key curr_stat |
-            kstat == curr_stat = (curr_key, (lookup curr_key t))
-        res kstat t curr_key curr_stat |
-            kstat < curr_stat = res kstat t (next_key t curr_key) (curr_stat + 1)
-        res kstat t curr_key curr_stat |
-            otherwise = error $ "something went wrong with kMean for kstat = " ++ show kstat
+sortedlistFromTree :: TreeMap v -> [(Integer, v)]
+sortedlistFromTree t = res $ listFromTree t
+    where
+        res l = sortBy (compare `on` fst) (frequency l)
 
-        next_key :: TreeMap v -> Integer -> Integer
-        next_key t prev = 
-            if contains t (prev + 1) then (prev + 1)
-            else (next_key t (prev + 1))
+-- Поиск k-той порядковой статистики дерева 
+kMean :: Integer -> TreeMap v -> (Integer, v)
+kMean kstat EmptyTM = error "EmptyTM (kMean)"
+kMean kstat t = res kstat (sortedlistFromTree t) 0
+    where
+        res kstat l@(lh:lt) c | c == kstat = lh
+        res kstat l@(lh:lt) c | otherwise = res kstat lt (c+1)
