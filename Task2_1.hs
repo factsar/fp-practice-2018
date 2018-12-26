@@ -65,20 +65,31 @@ keyTM t = fst $ prTM t
 -- coz we use key_TM in func that knowingly throw away EmptyTM coz of own pattern
 -- key_TM EmptyTM = error "EmptyTM"
 
+lookupTree :: Integer -> TreeMap v -> TreeMap v
+lookupTree _ EmptyTM = error "Empty Tree error"
+lookupTree lfk t@(Fork (hk, hv) lt rt) 
+    | hk == lfk = t
+    | hk > lfk = lookupTree lfk lt
+    | otherwise = lookupTree lfk rt
+
 -- Поиск ближайшего снизу ключа относительно заданного
 nearestLE :: Integer -> TreeMap v -> (Integer, v)
 nearestLE _ EmptyTM = error "Empty tree" 
 nearestLE lfk t | lfk == keyTM t = prTM t
-nearestLE lfk t@(Fork (hk, hv) EmptyTM EmptyTM) = (hk, hv)
-nearestLE lfk t@(Fork pr lt rt) = res lfk (listFromTree t) pr
+nearestLE lfk t@(Fork pr lt rt) = res (sortedlistFromTree $ lookupTree lfk t) lfk
     where
-        res :: Integer -> [(Integer, v)] -> (Integer, v) -> (Integer, v)
-        res lfk [] cpr = cpr
-        res lfk lpr@(lh:lt) cpr 
-            | (abs $ (fst lh) - lfk) < (abs $ (fst cpr) - lfk)
-                = res lfk lt lh
+        res :: [(Integer, v)] -> Integer -> (Integer, v)
+        res (lh:lt:[]) lfk = 
+            if lfk == (fst lt) then lh 
+            else error $ "cant find lfk = " ++ show lfk
+        res (lh:lht:ltt:lt) lfk 
+            | (fst lht) == lfk = 
+                if ((abs $ (fst lh) - lfk) < (abs $ (fst ltt) - lfk)) then
+                    lh
+                else
+                    ltt
             | otherwise
-                = res lfk lt cpr
+                = res (lht:ltt:lt) lfk
 
 -- Построение дерева из списка пар
 treeFromList :: [(Integer, v)] -> TreeMap v
