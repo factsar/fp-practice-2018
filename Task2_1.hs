@@ -8,6 +8,10 @@ import Prelude hiding (lookup)
 -- Ключи - Integer, значения - произвольного типа
 data TreeMap v = EmptyTM | Fork (Integer, v) (TreeMap v) (TreeMap v)
 
+-- Пустое дерево
+emptyTree :: TreeMap v
+emptyTree = EmptyTM
+
 min_key_plus :: TreeMap v -> Integer -> Integer
 min_key_plus EmptyTM curr_min = curr_min
 min_key_plus (Fork pr lt rt) curr_min = 
