@@ -94,6 +94,13 @@ instance Integral WeirdPeanoNumber where
             res (Succ a) c = res a (c + 1)
             res (Pred a) c = res a (c - 1)
 
-    quotRem a b  = (fromInteger div, fromInteger mod)
+    quotRem a b  = res a b 0
         where
-            (div, mod) = quotRem (toInteger a) (toInteger b)
+            res :: WeirdPeanoNumber -> WeirdPeanoNumber -> WeirdPeanoNumber -> (WeirdPeanoNumber, WeirdPeanoNumber)
+            res x y c | (abs x) < (abs y) = (c, x)
+            res x y c | 
+            ((abs x) == (abs y)) && (((x > Zero) && (y > Zero)) || ((x < Zero) && (y < Zero))) = ((c + 1), 0)
+            res x y c | 
+            ((abs x) == (abs y)) && (((x > Zero) && (y < Zero)) || ((x < Zero) && (y > Zero))) = ((c - 1), 0)
+            res x y c | ((x > Zero) && (y > Zero)) || ((x < Zero) && (y < Zero)) = res (x - y) y (c + 1)
+            res x y c | ((x > Zero) && (y < Zero)) || ((x < Zero) && (y > Zero)) = res (x + y) y (c - 1)
