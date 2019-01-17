@@ -72,3 +72,44 @@ main = do
   putStr "doesSquareBetweenExist 5 7 = "; print $ Task1_2.doesSquareBetweenExist 5 7
   putStr "doesSquareBetweenExist 5 8 = "; print $ Task1_2.doesSquareBetweenExist 5 8
   putStr "doesSquareBetweenExist 7 8 = "; print $ Task1_2.doesSquareBetweenExist 7 8
+  
+  putStr "************\n"
+  putStr "Task3_1 :\n"
+
+  let weirdZero = Zero
+  putStr "show weirdNumb = Zero\n"
+  print $ weirdZero
+
+  let weirdSuccZero = Succ Zero
+  putStr "show weirdSuccZero\n"
+  print $ weirdSuccZero
+  --print $ Task3_1.simplify weirdSuccZero
+
+  let weirdPredSuccZero = Pred $ Succ Zero
+  putStr "show weirdPredSuccZero\n"
+  print $ weirdPredSuccZero
+  putStr "simplify weirdPredSuccZero\n"
+  print $ Task3_1.simplify weirdPredSuccZero
+
+  putStr "weirdZero == weirdPredSuccZero\n"
+  print $ (weirdZero == weirdPredSuccZero)
+
+  -- ************************************* (qoutRem tests below)
+
+  let kek  = Succ $ Succ $ Succ $ Succ $ Succ Zero
+  let kek' = Succ $ Succ $ Succ Zero
+
+  putStr "quotRem 3 5 = \n" 
+  print $ quotRem kek' kek
+
+  putStr "quotRem 5 3 = \n" 
+  print $ quotRem kek kek'
+
+  putStr "quotRem -5 -3 = \n" 
+  print $ quotRem (negate kek) (negate kek')
+
+  putStr "quotRem -5 3 = \n" 
+  print $ quotRem (negate kek) kek'
+
+  putStr "quotRem 5 -3 = \n" 
+  print $ quotRem kek (negate kek')
