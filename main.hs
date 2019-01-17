@@ -73,6 +73,15 @@ main = do
   putStr "doesSquareBetweenExist 5 8 = "; print $ Task1_2.doesSquareBetweenExist 5 8
   putStr "doesSquareBetweenExist 7 8 = "; print $ Task1_2.doesSquareBetweenExist 7 8
   
+  
+  putStr "************\n"
+  putStr "Task2_2 :\n"
+  putStr "test Task2_2.map\n"
+  let listik = [1, 2, 3, 4, 5] 
+  putStr " map (+1) [1,2,3,4,5] :"
+  print $ Task2_2.map (+ 1) listik
+  putStr "END $ map add listik"
+  
   putStr "************\n"
   putStr "Task3_1 :\n"
 
