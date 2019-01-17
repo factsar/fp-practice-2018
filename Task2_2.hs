@@ -29,7 +29,7 @@ reverse lst = foldl f [] lst where f t h = h:t
 -- Отображение элементов списка
 map :: (a -> b) -> [a] -> [b]
 map f [] = []
-map f (lh:lt) = foldr (\lh lt -> (f lh):lt) [] lt
+map f (lh:lt) = foldr (\lh lt -> (f lh):lt) [] (lh:lt)
 
 -- Произведение всех элементов списка
 product :: [Integer] -> Integer
