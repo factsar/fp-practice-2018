@@ -80,20 +80,23 @@ lookupTree lfk t@(Fork (hk, hv) lt rt)
 nearestLE :: Integer -> TreeMap v -> (Integer, v)
 nearestLE _ EmptyTM = error "Empty tree" 
 nearestLE lfk t | lfk == keyTM t = prTM t
-nearestLE lfk t@(Fork pr lt rt) = res (sortedlistFromTree $ lookupTree lfk t) lfk
+nearestLE lfk t = res lfk t
     where
-        res :: [(Integer, v)] -> Integer -> (Integer, v)
-        res (lh:lt:[]) lfk = 
-            if lfk == (fst lt) then lh 
-            else error $ "cant find lfk = " ++ show lfk
-        res (lh:lht:ltt:lt) lfk 
-            | (fst lht) == lfk = 
-                if ((abs $ (fst lh) - lfk) < (abs $ (fst ltt) - lfk)) then
-                    lh
-                else
-                    ltt
-            | otherwise
-                = res (lht:ltt:lt) lfk
+        res :: Integer -> TreeMap v -> (Integer, v)
+        res lfk EmptyTM = error ""
+        res lfk t@(Fork pr lt rt) = 
+            if (keyTM t) < lfk  then res' lfk t pr 
+                else res lfk lt where 
+res' :: Integer -> TreeMap v -> (Integer, v) -> (Integer, v)
+res' lfk t@(Fork pr lt rt) cm 
+    | (lfk - (fst pr)) < (lfk - (fst cm)) = res' lfk t pr 
+    | (((lfk - (fst cm)) < (lfk - (fst (res' lfk lt cm)))) 
+        && ((lfk - (fst cm)) < (lfk - (fst (res' lfk rt cm)))) ) = cm
+    | (((lfk - (fst cm)) > (lfk - (fst (res' lfk lt cm)))) 
+        && ((lfk - (fst (res' lfk lt cm))) < (lfk - (fst (res' lfk rt cm))))) = res' lfk lt cm
+    | (((lfk - (fst (res' lfk rt cm))) < (lfk - (fst (res' lfk lt cm)))) 
+        && ((lfk - (fst cm)) > (lfk - (fst (res' lfk rt cm))))) = res' lfk rt cm
+    | otherwise = error ""
 
 -- Построение дерева из списка пар
 treeFromList :: [(Integer, v)] -> TreeMap v
@@ -112,10 +115,12 @@ sortedlistFromTree t = res $ listFromTree t
 
 -- Поиск k-той порядковой статистики дерева 
 kMean :: Integer -> TreeMap v -> (Integer, v)
-kMean kstat EmptyTM = error "EmptyTM (kMean)"
-kMean kstat t = res kstat (sortedlistFromTree t) 0
-    where
-        res :: Integer -> [(Integer, v)] -> Integer -> (Integer, v)
-        res kstat l@(lh:[]) c | (c+1) < kstat = error "kstat more then TreeMP"
-        res kstat l@(lh:lt) c | c == kstat = lh
-        res kstat l@(lh:lt) c | c < kstat = res kstat lt (c+1)
+kMean _ EmptyTM = error "Empty tree"
+kMean x t@(Fork pr' lt rt) = res x t where
+res x (Fork pr' lt rt)
+    | tMPlnght lt == (x - 1) = pr'
+    | tMPlnght lt > (x - 1)  = kMean x lt
+    | tMPlnght lt < (x - 1)  = kMean (x - (tMPlnght lt) - 1) rt
+        where
+            tMPlnght EmptyTM = 0
+            tMPlnght (Fork _ lt rt) = (tMPlnght lt) + (tMPlnght rt) + 1
