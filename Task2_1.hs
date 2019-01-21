@@ -4,6 +4,9 @@ import Todo(todo)
 
 import Prelude hiding (lookup)
 
+import Data.Function (on)
+import Data.List (sortBy)
+
 -- Ассоциативный массив на основе бинарного дерева поиска
 -- Ключи - Integer, значения - произвольного типа
 data TreeMap v = EmptyTM | Fork (Integer, v) (TreeMap v) (TreeMap v)
